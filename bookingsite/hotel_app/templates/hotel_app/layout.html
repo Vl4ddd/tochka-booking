@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static 'hotel_app/css/style.css' %}">
+</head>
+<header class="main-header">
+    <h1><a class="logo" href="/">Logo</a></h1>
+    <div class="menu">
+        <ul>
+            <nav class="main-nav">
+                <li><a href="/settings">Настройки</a></li>
+                <li><a href="/help/">Оплата</a></li>
+            </nav>
+        </ul>
+    </div>
+    <div class="user-info">
+        <ul class="menu">
+            <li>
+                <div class="user-actions">
+                    <a href="/register" class="logout-button">Войти</a>
+            </li>
+            <div class="register">
+                <a href="/register"><img src="{% static 'hotel_app/images/login.svg' %}" alt="register-img"
+                        class="register-photo" /></a>
+            </div>
+    </div>
+    </div>
+    </ul>
+
+</header>
+
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+
+<footer class="main-footer">
+    <div class="footer">
+
+        <div class="row">
+            <ul>
+                <nav class="footer-nav">
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="/settings/">Настройки</a></li>
+                    <li><a href="/help/">Поддержка</a></li>
+                </nav>
+            </ul>
+        </div>
+
+        <div class="row">
+            Booking
+        </div>
+    </div>
+</footer>
+
+</html>
