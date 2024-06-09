@@ -3,8 +3,16 @@
 <html>
 {% block content %}
 
-<body>
-    <h1>JGF</h1>
+<body >
+    <h1>Список отелей</h1>
+    {% for hotel in hotels %}
+    <div style="margin: 30px;">
+        <a href="#">{{ hotel.name }}</a>
+        <p>Расположение: {{ hotel.location }}</p>
+        <p>Количество звезд:{{ hotel.stars }}</p>
+    </div>
+    {% endfor %}
+
 </body>
 
 {% endblock %}
