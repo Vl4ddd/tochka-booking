@@ -25,10 +25,15 @@
             <li>
                 <div class="user-actions">
                     <a href="/profile" class="logout-button">Профиль</a>
+                </div>
             </li>
             <li>
                 <div class="user-actions">
-                    <a href="/logout" class="logout-button">Выйти</a>
+                    <form id="logout-form" action="{% url 'logout' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="glow-on-hover" >Выйти</button>
+                    </form>
+                </div>
             </li>
             <div class="register">
                 <a href="/profile"><img src="{% static 'hotel_app/images/login.svg' %}" alt="register-img"
@@ -40,10 +45,12 @@
             <li>
                 <div class="user-actions">
                     <a href="/login" class="logout-button">Войти</a>
+                </div>
             </li>
             <li>
                 <div class="user-actions">
                     <a href="/register" class="logout-button">Регистрация</a>
+                </div>
             </li>
             <div class="register">
                 <a href="/profile"><img src="{% static 'hotel_app/images/login.svg' %}" alt="register-img"
@@ -51,7 +58,7 @@
             </div>
         </ul>
         {% endif %}
-        
+
     </div>
     </ul>
 

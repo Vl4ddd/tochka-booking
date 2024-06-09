@@ -13,8 +13,12 @@ class Hotel(models.Model):
 class Room(models.Model):
     room_id = models.AutoField(primary_key=True)
     hotel_id = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    room_name = models.CharField(max_length=255, default='Обычный номер')
     room_count = models.IntegerField()
     price = models.IntegerField()
+
+    def __str__(self):
+        return self.room_name
 
 
 

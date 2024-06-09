@@ -5,12 +5,13 @@
 
 <body>
     {% if user.is_authenticated %}
-    <h1>Список отелей</h1>
-    {% for hotel in hotels %}
+    <h1>Список номеров</h1>
+    {% for room in rooms %}
     <div style="margin: 30px;">
-        <h1><a href="/post/{{ hotel.hotel_id}}">{{ hotel.name }}</a></h1>
-        <p>Расположение: {{ hotel.location }}</p>
-        <p>Количество звезд:{{ hotel.stars }}</p>
+        <h1>Номер: {{ room.room_name }}</h1>
+        <p>Количество комнат: {{ room.room_count }}</p>
+        <p>Цена: {{ room.price }}</p>
+        <button>Забронировать</button>
     </div>
     {% endfor %}
     {% else %}
