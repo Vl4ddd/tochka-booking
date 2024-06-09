@@ -20,4 +20,5 @@ urlpatterns = [
         name="logout",
     ),
     path("profile/", user_views.profile, name="users/profile"),
+    path('post/<int:post_id>/', hotel)
 ]
