@@ -1,0 +1,35 @@
+{% extends "hotel_app/layout.html" %}
+
+<!DOCTYPE html>
+<html>
+{% block content %}
+
+<body>
+    <h1>Выберите дату и забронируйте номер "{{ room.room_name }}"</h1>
+    
+    <h1 style="margin: 30px;">Недоступные даты</h1>
+    {% for book in booking %}
+    <div style="margin: 30px;">
+        <p>{{ book.checkin_date }} - {{ book.checkout_date }}</p>
+    </div>
+    {% endfor %}
+
+   
+    <h1 style="margin: 30px;">Выбериете дату</h1>
+    <form  method="post">
+        {% csrf_token %}
+        <table>
+        {{ form.as_p }}
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+
+
+</form>
+    
+
+</body>
+
+{% endblock %}
+
+</html>
