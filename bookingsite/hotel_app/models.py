@@ -30,6 +30,7 @@ class Booking(models.Model):
     hotel_id = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     checkin_date = models.DateField()
     checkout_date = models.DateField()
+    paid = models.BooleanField(default=0)
 
 
 

@@ -2,9 +2,11 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
+from django.urls import reverse
 
 from .models import Hotel, Room, Booking
-from .forms import BookingDate
+from .forms import BookingDate, Payment
 
 import datetime
 
@@ -30,7 +32,7 @@ def hotel(request, post_id):
 @login_required
 def booking(request, post_id):
     try:
-        booking = Booking.objects.filter(room_id=post_id)
+        booking = Booking.objects.filter(room_id=post_id, paid = True)
     except:
         booking = None
     
@@ -41,15 +43,21 @@ def booking(request, post_id):
         form = BookingDate(request.POST)
 
         if form.is_valid():
-            form.save(commit=False)
-            Booking.user_id = request.user.id
-            Booking.checkin_date = form.cleaned_data["checkin_date"]
-            Booking.checkout_date = form.cleaned_data["checkout_date"]
-            Booking.hotel_id = Room.objects.get(pk=post_id).hotel_id
-            Booking.room_id = Room.objects.get(pk=post_id)
+                
+                form.save(commit=False)
+                form.instance.user = request.user
+                Booking.checkin_date = form.cleaned_data["checkin_date"]
+                Booking.checkout_date = form.cleaned_data["checkout_date"]
+                form.instance.hotel_id = Room.objects.get(pk=post_id).hotel_id
+                form.instance.room_id = Room.objects.get(pk=post_id)
 
-            form.save()
-            return redirect("/")
+                model = form.save()
+                form.save()
+                request.session['booking_id'] = model.booking_id
+                
+            
+                return redirect(f'payment/', post_id=post_id)
+            
     else:
         form = BookingDate()
 
@@ -62,3 +70,42 @@ def booking(request, post_id):
     }
 
     return render(request, "hotel_app/booking.html", context)
+
+
+def payment(request, post_id):
+
+    room = get_object_or_404(Room, pk=post_id)
+
+    book_paid = Booking.objects.get(pk = request.session['booking_id'])
+
+    if request.method == "POST":
+        form = Payment(request.POST, instance=book_paid)
+            
+        if form.is_valid():  
+            money = form.cleaned_data['money']
+            if int(money) == int(Room.objects.get(pk=post_id).price):
+                form.instance.paid = True
+                form.save()
+
+
+                return redirect(reverse('users/profile'))
+            else:
+                form.add_error('money', 'Money-')
+
+                            
+    else:
+        form = Payment(instance=book_paid)
+
+    context = {
+    "room": room,
+    "room_id": room.room_id,
+    'form': form,
+    }
+
+    
+    return render(request, "hotel_app/payment.html", context)
+
+   
+   
+
+   
