@@ -1,0 +1,26 @@
+{% extends "hotel_app/layout.html" %}
+
+<!DOCTYPE html>
+<html>
+{% block content %}
+
+<body>
+    <h1>Оплатите номер "{{ room.room_name }}"</h1>
+    
+
+    <form method="post">
+        {% csrf_token %}
+        <p>Цена: {{ room.price }}</p>
+        <table>
+            {{ form.money }}
+        </table>
+        <input type="submit" value="money"/>
+    </form>
+    </form>
+
+
+</body>
+
+{% endblock %}
+
+</html>

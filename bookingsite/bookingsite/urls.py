@@ -21,6 +21,7 @@ urlpatterns = [
     ),
     path("profile/", user_views.profile, name="users/profile"),
     path('hotel/<int:post_id>/', hotel),
-    path('booking/<int:post_id>/', booking)
+    path('booking/<int:post_id>/', booking),
+    path('booking/<int:post_id>/payment/', payment),
 
 ]
