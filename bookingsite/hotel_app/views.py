@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAdminUser
 
 from .models import Hotel, Room, Booking
 from .forms import BookingDate, Payment
-from .serializers import HotelSerializer
+from .serializers import HotelSerializer, RoomSerializer
 
 
 import datetime
@@ -20,14 +20,24 @@ class HotelList(generics.ListCreateAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
     permission_classes = [IsAdminUser]
-    
 
 
 class HotelDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
     permission_classes = [IsAdminUser]
-    
+
+
+class RoomList(generics.ListCreateAPIView):
+    queryset = Room.objects.all().order_by("hotel_id")
+    serializer_class = RoomSerializer
+    permission_classes = [IsAdminUser]
+
+
+class RoomDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Room.objects.all().order_by("hotel_id")
+    serializer_class = RoomSerializer
+    permission_classes = [IsAdminUser]
 
 
 def admin_check(user):
