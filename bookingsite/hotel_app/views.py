@@ -4,9 +4,13 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.urls import reverse
+from rest_framework import generics
+
 
 from .models import Hotel, Room, Booking
 from .forms import BookingDate, Payment
+from .serializers import HotelSerializer
+
 
 import datetime
 
@@ -27,6 +31,15 @@ def hotel(request, post_id):
     }
 
     return render(request, "hotel_app/hotel.html", context)
+
+
+class HotelList(generics.ListCreateAPIView):
+    queryset = Hotel.objects.all()
+    serializer_class = HotelSerializer
+
+class HotelDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Hotel.objects.all()
+    serializer_class = Hotel
 
 
 @login_required
