@@ -1,5 +1,6 @@
 {% load crispy_forms_tags %}
-
+<!DOCTYPE html>
+<html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -26,7 +27,7 @@
     }
 
     .content-section {
-        position: fixed;
+        position: relative;
         left: 25%;
         width: 50%;
         background: #ffffff;
@@ -84,13 +85,20 @@
     }
 </style>
 {% block content %}
-    <div class="content-section">
-      <div class="media">
+<div class="content-section">
+    <div class="media">
         <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
         </div>
-      </div>
-      <!-- Здесь будет форма -->
     </div>
+    <h1>Ваши бронирования</h1>
+    {% for book in booking %}
+    <div>{{ book.room_id}}</div>
+        <div style="margin: 10px;">{{ book.checkin_date }} - {{ book.checkout_date }}</div>
+    {% endfor %}
+</div>
+</body>
 {% endblock content %}
+
+</html>
