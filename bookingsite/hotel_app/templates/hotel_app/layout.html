@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static 'hotel_app/css/style.css' %}">
+
+
+</head>
+<header class="main-header">
+    <h1><a class="logo" href="/">Logo</a></h1>
+    <div class="menu">
+        <ul>
+            <nav class="main-nav">
+                <li><a href="/settings">Настройки</a></li>
+                <li><a href="/help/">Оплата</a></li>
+            </nav>
+        </ul>
+    </div>
+    <div class="user-info">
+        {% if user.is_authenticated %}
+        <ul class="menu">
+            <li>
+                <div class="user-actions">
+                    <a href="/profile" class="logout-button">Профиль</a>
+                </div>
+            </li>
+            <li>
+                <div class="user-actions">
+                    <form id="logout-form" action="{% url 'logout' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="glow-on-hover" >Выйти</button>
+                    </form>
+                </div>
+            </li>
+            <div class="register">
+                <a href="/profile"><img src="{% static 'hotel_app/images/login.svg' %}" alt="register-img"
+                        class="register-photo" /></a>
+            </div>
+        </ul>
+        {% else %}
+        <ul class="menu">
+            <li>
+                <div class="user-actions">
+                    <a href="/login" class="logout-button">Войти</a>
+                </div>
+            </li>
+            <li>
+                <div class="user-actions">
+                    <a href="/register" class="logout-button">Регистрация</a>
+                </div>
+            </li>
+            <div class="register">
+                <a href="/profile"><img src="{% static 'hotel_app/images/login.svg' %}" alt="register-img"
+                        class="register-photo" /></a>
+            </div>
+        </ul>
+        {% endif %}
+
+    </div>
+    </ul>
+
+</header>
+
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+
+<footer class="main-footer">
+    <div class="footer">
+
+        <div class="row">
+            <ul>
+                <nav class="footer-nav">
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="/settings/">Настройки</a></li>
+                    <li><a href="/help/">Поддержка</a></li>
+                </nav>
+            </ul>
+        </div>
+
+        <div class="row">
+            Booking
+        </div>
+    </div>
+</footer>
+
+</html>

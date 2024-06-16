@@ -1,0 +1,24 @@
+{% extends "hotel_app/layout.html" %}
+<!DOCTYPE html>
+<html>
+{% block content %}
+
+<body>
+    {% if user.is_authenticated %}
+    <h1>Список отелей</h1>
+    {% for hotel in hotels %}
+    <div style="margin: 30px;">
+        <h1><a href="/hotel/{{ hotel.hotel_id}}">{{ hotel.name }}</a></h1>
+        <p>Расположение: {{ hotel.location }}</p>
+        <p>Количество звезд:{{ hotel.stars }}</p>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p style="padding-left: 45%; padding-top: 10%;">Войдите, чтобы увидеть список отелей</p>
+    {% endif %}
+
+</body>
+
+{% endblock %}
+
+</html>

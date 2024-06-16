@@ -1,0 +1,104 @@
+{% load crispy_forms_tags %}
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link
+        href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900'
+        rel='stylesheet' type='text/css'>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<style>
+    .bg-blue {
+        background-color: #6699cc;
+    }
+
+    .site-header .navbar-nav .nav-link {
+        color: #cbd5db;
+    }
+
+    .site-header .navbar-nav .nav-link:hover {
+        color: #ffffff;
+    }
+
+    .site-header .navbar-nav .nav-link.active {
+        font-weight: 500;
+    }
+
+    .content-section {
+        position: fixed;
+        left: 25%;
+        width: 50%;
+        background: #ffffff;
+        padding: 10px 20px;
+        border: 1px solid #dddddd;
+        border-radius: 3px;
+        margin-bottom: 20px;
+    }
+
+    .article-title {
+        color: #444444;
+    }
+
+    a.article-title:hover {
+        color: #428bca;
+        text-decoration: none;
+    }
+
+    .article-content {
+        white-space: pre-line;
+    }
+
+    .article-img {
+        height: 65px;
+        width: 65px;
+        margin-right: 16px;
+    }
+
+    .article-metadata {
+        padding-bottom: 1px;
+        margin-bottom: 4px;
+        border-bottom: 1px solid #e3e3e3
+    }
+
+    .article-metadata a:hover {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .article-svg {
+        width: 25px;
+        height: 25px;
+        vertical-align: middle;
+    }
+
+    .account-img {
+        height: 125px;
+        width: 125px;
+        margin-right: 20px;
+        margin-bottom: 16px;
+    }
+
+    .account-heading {
+        font-size: 2.5rem;
+    }
+</style>
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Вход</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Войти</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Нужен аккаунт? <a class="ml-2" href="{% url 'register' %}">Регистрация</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}

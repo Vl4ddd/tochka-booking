@@ -1,0 +1,25 @@
+{% extends "hotel_app/layout.html" %}
+<!DOCTYPE html>
+<html>
+{% block content %}
+
+<body>
+    {% if user.is_authenticated %}
+    <h1>Список номеров</h1>
+    {% for room in rooms %}
+    <div style="margin: 30px;">
+        <h1>Номер: {{ room.room_name }}</h1>
+        <p>Количество комнат: {{ room.room_count }}</p>
+        <p>Цена: {{ room.price }}</p>
+        <button><a href="/booking/{{ room.room_id}}">Забронировать</a></button>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p style="padding-left: 45%; padding-top: 10%;">Войдите, чтобы увидеть список отелей</p>
+    {% endif %}
+
+</body>
+
+{% endblock %}
+
+</html>
