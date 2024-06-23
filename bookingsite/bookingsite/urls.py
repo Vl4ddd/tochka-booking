@@ -9,7 +9,6 @@ from users import views as user_views
 from hotel_app import views
 
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home),
@@ -28,8 +27,8 @@ urlpatterns = [
     path("hotel/<int:post_id>/", hotel),
     path("booking/<int:post_id>/", booking),
     path("booking/<int:post_id>/payment/", payment),
-    path('hotels/', HotelList.as_view(), name='hotel-list'),
-    path('hotels/<int:pk>/', HotelDetail.as_view(), name='hotel-detail'),
-    path('rooms/', RoomList.as_view(), name='room-list'),
-    path('rooms/<int:pk>/', RoomDetail.as_view(), name='room-detail'),
+    path("hotels/", HotelList.as_view(), name="hotel-list"),
+    path("hotels/<int:pk>/", HotelDetail.as_view(), name="hotel-detail"),
+    path("rooms/", RoomList.as_view(), name="room-list"),
+    path("rooms/<int:pk>/", RoomDetail.as_view(), name="room-detail"),
 ]
