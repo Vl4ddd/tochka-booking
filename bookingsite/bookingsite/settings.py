@@ -118,14 +118,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = [
-     'static/',
-     'static/hotel_app',
-     'static/users',
-     'static/images/',
-]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Default primary key field type
