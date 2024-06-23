@@ -143,8 +143,8 @@ def payment(request, post_id):
         form = Payment(request.POST, instance=book_paid)
 
         if form.is_valid():
-            money = form.cleaned_data["money"]
-            if int(money) == int(Room.objects.get(pk=post_id).price):
+            money = form.cleaned_data["money"] // ((book_paid.checkout_date - book_paid.checkin_date).days + 1)
+            if int(money) == int(Room.objects.get(pk=post_id).price) :
                 form.instance.paid = True
                 form.save()
 
@@ -159,6 +159,7 @@ def payment(request, post_id):
         "room": room,
         "room_id": room.room_id,
         "form": form,
+        "price": room.price * ((book_paid.checkout_date - book_paid.checkin_date).days + 1),
     }
 
     return render(request, "hotel_app/payment.html", context)
