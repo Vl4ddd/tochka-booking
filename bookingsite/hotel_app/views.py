@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.cache import cache
 from django.urls import reverse
+from django.core.mail import send_mail
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
 
@@ -143,9 +144,15 @@ def payment(request, post_id):
         form = Payment(request.POST, instance=book_paid)
 
         if form.is_valid():
-            money = form.cleaned_data["money"]
-            if int(money) == int(Room.objects.get(pk=post_id).price):
+            money = form.cleaned_data["money"] // ((book_paid.checkout_date - book_paid.checkin_date).days + 1)
+            if int(money) == int(Room.objects.get(pk=post_id).price) :
                 form.instance.paid = True
+                subject = 'Бронирование номера'
+                message = f'Даты вашего заезда и выезда: {book_paid.checkin_date} - {book_paid.checkout_date}, Номер: {room.room_name}'
+                from_email = 'dzozefkramber@gmail.com'
+                recipient_list = [request.user.email]
+
+                send_mail(subject, message, from_email, recipient_list)
                 form.save()
 
                 return redirect(reverse("users/profile"))
@@ -159,6 +166,7 @@ def payment(request, post_id):
         "room": room,
         "room_id": room.room_id,
         "form": form,
+        "price": room.price * ((book_paid.checkout_date - book_paid.checkin_date).days + 1),
     }
 
     return render(request, "hotel_app/payment.html", context)
